@@ -5,6 +5,16 @@ h1 {
   width: 50%;
   margin: 0 auto;
 }
+.loading {
+  margin: 0 auto;
+  text-align: center;
+  display: block;
+  transition: 500ms
+}
+.loading img {
+  margin-top: 25px;
+  width: 200px;
+}
 
 @media only screen and (max-width: 600px) {
   .main-form {
