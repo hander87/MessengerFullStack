@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const cors = require('cors'); // Handle CORS related issues
 const monk = require('monk'); // DB
