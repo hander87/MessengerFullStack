@@ -1,12 +1,14 @@
 const express = require('express');
 const cors = require('cors'); // Handle CORS related issues
 const monk = require('monk'); // DB
-const Filter = require('bad-words');
-const rateLimit = require("express-rate-limit");
+const Filter = require('bad-words'); // Profanity Filter
+const rateLimit = require('express-rate-limit'); // Limits Server requests
 
+// Activates Express
 const app = express();
 
-const db = monk('localhost/messenger18'); // Connects to MongoDB
+// Connects to MongoDB
+const db = monk('localhost/messenger18'); 
 
 // Creates Collection Array "Posts". (If not allready exist, it creates it)
 const posts = db.get('posts');
@@ -14,8 +16,11 @@ const posts = db.get('posts');
 // Filters out bad words with clean()
 const filter = new Filter();
 
+// Cors Response handle activate
 app.use(cors());
-app.use(express.json()); // Parses client side responds into json
+
+// Parses client side responds into json
+app.use(express.json()); 
 
 app.get('/', (req, res) => {
   // Server respond
@@ -24,12 +29,10 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/posts', (req, res ) => {
-    posts
-    .find()
-    .then(posts => {
-        res.json(posts);
-    });
+app.get('/posts', (req, res) => {
+  posts.find().then(posts => {
+    res.json(posts);
+  });
 });
 
 function isPostValid(post) {
@@ -46,14 +49,13 @@ function isPostValid(post) {
   }
 }
 
-// Rate limits server requests. 
+// Rate limits server requests.
 // By moving app.use BELOW GETERS it limits posts only
 const limiters = rateLimit({
   windowMs: 15 * 1000, // 15 seconds
   max: 1 // limit each IP to 1 requests per windowMs
 });
 app.use(limiters);
-
 
 app.post('/post', (req, res) => {
   // Incoming posts from client
@@ -70,7 +72,6 @@ app.post('/post', (req, res) => {
       res.json(createdPost);
       console.log('Post entered into DB', createdPost);
     });
-
   } else {
     res.status(422);
     res.json({

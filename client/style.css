@@ -1,9 +1,16 @@
 h1 {
   text-align: center;
 }
-.main-form, .posts-display {
+.main-form, .posts-display, .error {
   width: 50%;
   margin: 0 auto;
+}
+.error p {
+  text-align: center;
+  padding: 10px;
+  color: red;
+  border: 1px solid red;
+  border-radius: 6px;
 }
 .posts-display {
   margin-top: 40px;

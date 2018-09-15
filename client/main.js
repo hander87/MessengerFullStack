@@ -3,6 +3,7 @@ console.log('Client Script Ready:');
 const form = document.querySelector('form');
 const loading = document.querySelector('.loading');
 const postsDisplay = document.querySelector('.posts-display');
+const errorDisplay = document.querySelector('.error');
 const API_URL = 'http://localhost:5000';
 
 loading.style.display = 'block';
@@ -11,7 +12,9 @@ getAllPosts();
 
 form.addEventListener('submit', (event) => {
     event.preventDefault(); 
-    console.log('Form Submitted');
+    console.log('Form submition client request...');
+
+    errorDisplay.innerHTML = '';
 
     const formData = new FormData(form);
     const name = formData.get('name');
@@ -35,15 +38,20 @@ form.addEventListener('submit', (event) => {
         }
     })
     .then(response => response.json()) // Respond to see the post that was inserted
-    .then(createdPPost => {
-        console.log('ServerResponse: ', createdPPost);
+    .then(createdPost => {
+        console.log('ServerResponse: ', createdPost);
         form.reset();
         getAllPosts();
         form.style.display = 'block';
         loading.style.display = 'none';
     })
     .catch(err => {
-        console.log('Something went wrong... Perhaps you sent to many request.');
+        const error = document.createElement('p');
+        error.textContent = err;
+        errorDisplay.appendChild(error);
+
+        console.log('ERROR CATCH', err);
+        console.log('Something went wrong... Perhaps to many post submitions?');
         form.style.display = 'block';
         loading.style.display = 'none';
     })
