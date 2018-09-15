@@ -20,6 +20,9 @@ form.addEventListener('submit', (event) => {
     }
     console.log(post);
 
+    form.style.display = 'none';
+    loading.style.display = 'block';
+
     // Client side insert to server - then into DB
     fetch(API_URL + '/post', {
         method: 'POST',
@@ -28,11 +31,12 @@ form.addEventListener('submit', (event) => {
             'content-type': 'application/json'
         }
     })
-    .then(response => response.json())
+    .then(response => response.json()) // Respond to see the post that was inserted
     .then(createdPPost => {
-        console.log('ServerResponse: ', createdPPost)
+        console.log('ServerResponse: ', createdPPost);
+        form.reset();
+        form.style.display = 'block';
+        loading.style.display = 'none';
     })
-
-    form.style.display = 'none';
-    loading.style.display = 'block';
+    
 })
