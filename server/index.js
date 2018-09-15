@@ -1,12 +1,18 @@
 const express = require('express');
 const cors = require('cors'); // Handle CORS related issues
 const monk = require('monk'); // DB
+const Filter = require('bad-words');
+const rateLimit = require("express-rate-limit");
 
 const app = express();
 
 const db = monk('localhost/messenger18'); // Connects to MongoDB
+
 // Creates Collection Array "Posts". (If not allready exist, it creates it)
 const posts = db.get('posts');
+
+// Filters out bad words with clean()
+const filter = new Filter();
 
 app.use(cors());
 app.use(express.json()); // Parses client side responds into json
@@ -14,7 +20,7 @@ app.use(express.json()); // Parses client side responds into json
 app.get('/', (req, res) => {
   // Server respond
   res.json({
-    message: 'Hello from Express'
+    message: 'Server Running! Nice.'
   });
 });
 
@@ -40,12 +46,21 @@ function isPostValid(post) {
   }
 }
 
+// Rate limits server requests. 
+// By moving app.use BELOW GETERS it limits posts only
+const limiters = rateLimit({
+  windowMs: 15 * 1000, // 15 seconds
+  max: 1 // limit each IP to 1 requests per windowMs
+});
+app.use(limiters);
+
+
 app.post('/post', (req, res) => {
   // Incoming posts from client
   if (isPostValid(req.body)) {
     const post = {
-      name: req.body.name.toString(), // toString prevents DATA INJECTION
-      content: req.body.content.toString(),
+      name: filter.clean(req.body.name.toString()), // toString prevents DATA INJECTION
+      content: filter.clean(req.body.content.toString()),
       created: new Date()
     };
     console.log('Valid post!', post);

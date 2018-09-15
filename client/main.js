@@ -42,6 +42,11 @@ form.addEventListener('submit', (event) => {
         form.style.display = 'block';
         loading.style.display = 'none';
     })
+    .catch(err => {
+        console.log('Something went wrong... Perhaps you sent to many request.');
+        form.style.display = 'block';
+        loading.style.display = 'none';
+    })
     
 })
 
@@ -68,6 +73,6 @@ function getAllPosts() {
                 div.appendChild(created);
                 postsDisplay.appendChild(div);
             });
-            loading.style.display = 'none';;
+            loading.style.display = 'none';
         })
 }
