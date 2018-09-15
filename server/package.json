@@ -10,6 +10,7 @@
   "author": "Hannes Anderblad | http://handerblad.se",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.4",
     "express": "^4.16.3",
     "morgan": "^1.9.1"
   },

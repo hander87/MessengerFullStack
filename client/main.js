@@ -2,6 +2,7 @@ console.log('Client Script Ready:');
 
 const form = document.querySelector('form');
 const loading = document.querySelector('.loading');
+const API_URL = 'http://localhost:5000';
 
 loading.style.display = 'none';
 
@@ -18,6 +19,15 @@ form.addEventListener('submit', (event) => {
         content
     }
     console.log(post);
+
+    fetch(API_URL + '/post', {
+        method: 'POST',
+        body: JSON.stringify(post),
+        headers: {
+            'content-type': 'application/json'
+        }
+    })
+
     form.style.display = 'none';
     loading.style.display = 'block';
 })
