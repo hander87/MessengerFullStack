@@ -11,6 +11,7 @@ h1 {
   color: red;
   border: 1px solid red;
   border-radius: 6px;
+  box-shadow: 0px 2px 2px 0px #bdb7b7;
 }
 .posts-display {
   margin-top: 40px;
