@@ -2,9 +2,11 @@ const express = require('express');
 const cors = require('cors'); // Handle CORS related issues
 const monk = require('monk'); // DB
 
-const app = express(); 
+const app = express();
 
-const monk = monk('localhost/messenger18'); // Connects to DB
+const db = monk('localhost/messenger18'); // Connects to MongoDB
+// Creates Collection Array "Posts". (If not allready exist, it creates it)
+const posts = db.get('posts');
 
 app.use(cors());
 app.use(express.json()); // Parses client side responds into json
@@ -35,9 +37,17 @@ app.post('/post', (req, res) => {
   if (isPostValid(req.body)) {
     const post = {
       name: req.body.name.toString(), // toString prevents DATA INJECTION
-      content: req.body.content.toString()
+      content: req.body.content.toString(),
+      created: new Date()
     };
     console.log('Valid post!', post);
+
+    // Insert into DB collection "posts"
+    posts.insert(post).then(createdPost => {
+      res.json(createdPost);
+      console.log('Post entered into DB', createdPost);
+    });
+
   } else {
     res.status(422);
     res.json({

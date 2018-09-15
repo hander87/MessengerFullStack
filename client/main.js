@@ -20,12 +20,17 @@ form.addEventListener('submit', (event) => {
     }
     console.log(post);
 
+    // Client side insert to server - then into DB
     fetch(API_URL + '/post', {
         method: 'POST',
         body: JSON.stringify(post),
         headers: {
             'content-type': 'application/json'
         }
+    })
+    .then(response => response.json())
+    .then(createdPPost => {
+        console.log('ServerResponse: ', createdPPost)
     })
 
     form.style.display = 'none';
