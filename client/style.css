@@ -1,5 +1,19 @@
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #f1766d;
+  color: #fff;
+}
 h1 {
   text-align: center;
+  padding: 12px;
+  background-color: #00c5f5;
+}
+main {
+  padding: 0 10px;
+}
+input, textarea {
+  font-size: 1.6rem;
 }
 .main-form, .posts-display, .error {
   width: 50%;
@@ -11,7 +25,8 @@ h1 {
   color: red;
   border: 1px solid red;
   border-radius: 6px;
-  box-shadow: 0px 2px 2px 0px #bdb7b7;
+  box-shadow: 0px 2px 2px 0px #ffc4c4;
+  background: #fff
 }
 .posts-display {
   margin-top: 40px;
@@ -20,8 +35,10 @@ h1 {
   border: 1px solid #aae0f1;
   border-radius: 4px;
   padding: 10px 20px;
-  box-shadow: 0px 2px 2px 0px #c5c4c4;
+  box-shadow: 0px 2px 2px 0px #000000;;
   margin-bottom: 18px;
+  background-color: #fff;
+  color: #222;
 }
 .post-single h3 {
   font-size: 2.4rem;
