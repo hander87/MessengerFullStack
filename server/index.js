@@ -18,6 +18,14 @@ app.get('/', (req, res) => {
   });
 });
 
+app.get('/posts', (req, res ) => {
+    posts
+    .find()
+    .then(posts => {
+        res.json(posts);
+    });
+});
+
 function isPostValid(post) {
   //   SHORT-HAND expression:
   //   return post.name && post.name.toString().trim() !== '' &&

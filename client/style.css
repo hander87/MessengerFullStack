@@ -1,9 +1,30 @@
 h1 {
   text-align: center;
 }
-.main-form {
+.main-form, .posts-display {
   width: 50%;
   margin: 0 auto;
+}
+.posts-display {
+  margin-top: 40px;
+}
+.post-single {
+  border: 1px solid #aae0f1;
+  border-radius: 4px;
+  padding: 10px 20px;
+  box-shadow: 0px 2px 2px 0px #c5c4c4;
+  margin-bottom: 18px;
+}
+.post-single h3 {
+  font-size: 2.4rem;
+  margin: 0 0 5px;
+}
+.post-single p {
+  margin: 0 0 10px;
+}
+.post-single .created {
+  font-size: 1.3rem;
+  margin: 0 0 6px;
 }
 .loading {
   margin: 0 auto;
@@ -17,7 +38,7 @@ h1 {
 }
 
 @media only screen and (max-width: 600px) {
-  .main-form {
+  .main-form, .posts-display {
     width: 100%;
   }
 }

@@ -2,9 +2,12 @@ console.log('Client Script Ready:');
 
 const form = document.querySelector('form');
 const loading = document.querySelector('.loading');
+const postsDisplay = document.querySelector('.posts-display');
 const API_URL = 'http://localhost:5000';
 
-loading.style.display = 'none';
+loading.style.display = 'block';
+
+getAllPosts();
 
 form.addEventListener('submit', (event) => {
     event.preventDefault(); 
@@ -35,8 +38,36 @@ form.addEventListener('submit', (event) => {
     .then(createdPPost => {
         console.log('ServerResponse: ', createdPPost);
         form.reset();
+        getAllPosts();
         form.style.display = 'block';
         loading.style.display = 'none';
     })
     
 })
+
+function getAllPosts() {
+    postsDisplay.innerHTML = '';
+    fetch(API_URL + '/posts')
+        .then(response => response.json())
+        .then(posts => {
+            console.log(posts);
+            posts.reverse();
+            posts.forEach(post => {
+                const div = document.createElement('div');
+                const h3 = document.createElement('h3');
+                const p = document.createElement('p');
+                const created = document.createElement('p');
+                created.className = 'created';
+                div.className = 'post-single';
+
+                h3.textContent = post.name; // DON'T use innerHTML to avoid cross site scripting
+                p.textContent = post.content;
+                created.textContent = post.created;
+                div.appendChild(h3);
+                div.appendChild(p);
+                div.appendChild(created);
+                postsDisplay.appendChild(div);
+            });
+            loading.style.display = 'none';;
+        })
+}
