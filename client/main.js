@@ -4,7 +4,8 @@ const form = document.querySelector('form');
 const loading = document.querySelector('.loading');
 const postsDisplay = document.querySelector('.posts-display');
 const errorDisplay = document.querySelector('.error');
-const API_URL = 'http://localhost:5000';
+// Needs to be your own deployment environment
+const API_URL = window.location.hostname === 'localhost' ? 'http://localhost:5000' : 'https://XXXXXXXXXXX/';
 
 loading.style.display = 'block';
 
