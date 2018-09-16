@@ -14,19 +14,23 @@
 <body>
     <header>
         <h1>Messanger App</h1>
+        <p>NodeJS | Express | MongoDB | <a target="_blank" href="https://github.com/hander87/MessengerFullStack">@Github</a></p>
+        <div id="versionid">V 1.0</div>
+        <div id="admin"><a href="#coming_soon">Admin</a></div>
     </header>
     <main>
         <form class="main-form">
             <label for="name">Name</label>
-            <input class="u-full-width" type="text" id="name" name="name">
+            <input required class="u-full-width" type="text" id="name" name="name">
             <label for="content">Message</label>
-            <textarea class="u-full-width" type="text" id="content" name="content"></textarea>
-            <button class="u-full-width button-primary" type="submit">Post</button>
+            <textarea required class="u-full-width" type="text" id="content" name="content"></textarea>
+            <button class="u-full-width button-primary btn-submit" type="submit">Post</button>
         </form>
         <div class="error"></div>
         <div class="loading">
             <img src="loading.gif" alt="loading...">
         </div>
+        <hr>
         <div class="posts-display"></div>
     </main>
 </body>

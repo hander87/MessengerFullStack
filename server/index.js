@@ -54,8 +54,9 @@ function isPostValid(post) {
 // Rate limits server requests.
 // By moving app.use BELOW GETERS it limits posts only
 const limiters = rateLimit({
-  windowMs: 15 * 1000, // 15 seconds
-  max: 1 // limit each IP to 1 requests per windowMs
+  windowMs: 15 * 1000, // 30 seconds
+  max: 1, // limit each IP to 1 requests per windowMs
+  message: 'To many post request has been made from your IP! Please wait a few second...'
 });
 app.use(limiters);
 

@@ -47,7 +47,7 @@ form.addEventListener('submit', (event) => {
     })
     .catch(err => {
         const error = document.createElement('p');
-        error.textContent = err;
+        error.textContent = "Please wait a while! Only 1 message allowed per couple of seconds.";
         errorDisplay.appendChild(error);
 
         console.log('ERROR CATCH', err);
