@@ -10,7 +10,7 @@ const rateLimit = require('express-rate-limit'); // Limits Server requests
 const app = express();
 
 // Connects to MongoDB
-const db = monk('localhost/messenger18'); 
+const db = monk( process.env.MONGO_URI || 'localhost/messenger18'); 
 
 // Creates Collection Array "Posts". (If not allready exist, it creates it)
 const posts = db.get('posts');
