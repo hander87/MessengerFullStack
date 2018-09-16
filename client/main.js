@@ -9,81 +9,82 @@ const API_URL = 'http://localhost:5000';
 loading.style.display = 'block';
 
 setTimeout(() => {
-    getAllPosts();
-}, 400);
+  getAllPosts();
+}, 300);
 
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  console.log('Form submition client request...');
 
-form.addEventListener('submit', (event) => {
-    event.preventDefault(); 
-    console.log('Form submition client request...');
+  errorDisplay.innerHTML = '';
 
-    errorDisplay.innerHTML = '';
+  const formData = new FormData(form);
+  const name = formData.get('name');
+  const content = formData.get('content');
 
-    const formData = new FormData(form);
-    const name = formData.get('name');
-    const content = formData.get('content');
+  const post = {
+    name,
+    content
+  };
+  console.log(post);
 
-    const post = {
-        name,
-        content
+  loading.style.display = 'block';
+  postsDisplay.style.display = 'none';
+
+  // Client side insert to server - then into DB
+  fetch(API_URL + '/post', {
+    method: 'POST',
+    body: JSON.stringify(post),
+    headers: {
+      'content-type': 'application/json'
     }
-    console.log(post);
-
-    form.style.display = 'none';
-    loading.style.display = 'block';
-
-    // Client side insert to server - then into DB
-    fetch(API_URL + '/post', {
-        method: 'POST',
-        body: JSON.stringify(post),
-        headers: {
-            'content-type': 'application/json'
-        }
-    })
+  })
     .then(response => response.json()) // Respond to see the post that was inserted
     .then(createdPost => {
-        console.log('ServerResponse: ', createdPost);
-        form.reset();
+      console.log('ServerResponse: ', createdPost);
+      form.reset();
+      setTimeout(() => {
         getAllPosts();
-        form.style.display = 'block';
+        postsDisplay.style.display = 'block';
         loading.style.display = 'none';
+      },300);
     })
     .catch(err => {
-        const error = document.createElement('p');
-        error.textContent = "Please wait a while! Only 1 message allowed per couple of seconds.";
-        errorDisplay.appendChild(error);
+      const error = document.createElement('p');
+      error.textContent =
+        'Please wait a while! Only 1 message allowed per couple of seconds.';
+      errorDisplay.appendChild(error);
 
-        console.log('ERROR CATCH', err);
-        console.log('Something went wrong... Perhaps to many post submitions?');
-        form.style.display = 'block';
-        loading.style.display = 'none';
-    })
-    
-})
+      console.log('ERROR CATCH', err);
+      console.log('Something went wrong... Perhaps to many post submitions?');
+      form.style.display = 'block';
+      loading.style.display = 'none';
+    });
+});
 
 function getAllPosts() {
-    postsDisplay.innerHTML = '';
-    fetch(API_URL + '/posts')
-        .then(response => response.json())
-        .then(posts => {
-            console.log(posts);
-            posts.reverse();
-            posts.forEach(post => {
-                const div = document.createElement('div');
-                const h3 = document.createElement('h3');
-                const p = document.createElement('p');
-                const created = document.createElement('p');
-                created.className = 'created';
-                div.className = 'post-single';
+  postsDisplay.innerHTML = '';
+  fetch(API_URL + '/posts')
+    .then(response => response.json())
+    .then(posts => {
+      console.log(posts);
+      posts.reverse();
+      posts.forEach(post => {
+        const div = document.createElement('div');
+        const h3 = document.createElement('h3');
+        const p = document.createElement('p');
+        const created = document.createElement('p');
+        created.className = 'created';
+        div.className = 'post-single';
 
-                h3.textContent = post.name; // DON'T use innerHTML to avoid cross site scripting
-                p.textContent = post.content;
-                created.textContent = post.created;
-                div.appendChild(h3);
-                div.appendChild(p);
-                div.appendChild(created);
-                postsDisplay.appendChild(div);
-            });
-            loading.style.display = 'none';
-        })
+        h3.textContent = post.name; // DON'T use innerHTML to avoid cross site scripting
+        p.textContent = post.content;
+        created.textContent = post.created;
+        div.appendChild(h3);
+        div.appendChild(p);
+        div.appendChild(created);
+        postsDisplay.appendChild(div);
+      });
+      loading.style.display = 'none';
+    });
 }
