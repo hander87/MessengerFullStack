@@ -8,7 +8,10 @@ const API_URL = 'http://localhost:5000';
 
 loading.style.display = 'block';
 
-getAllPosts();
+setTimeout(() => {
+    getAllPosts();
+}, 400);
+
 
 form.addEventListener('submit', (event) => {
     event.preventDefault(); 
