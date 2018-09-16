@@ -59,6 +59,9 @@ textarea {
   box-shadow: 0px 2px 2px 2px #808080;
 }
 .btn-submit {
+  width: 30%;
+  display: block;
+  margin: 0 auto 5px;
   background-color: #8bc4d2 !important;
   border-color: #cab0ac !important;
 }
@@ -117,6 +120,9 @@ hr {
 }
 
 @media only screen and (max-width: 600px) {
+  .btn-submit {
+    width: 50%;
+  }
   .main-form,
   .posts-display,
   .error {
