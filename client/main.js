@@ -80,10 +80,10 @@ function getAllPosts() {
 
         h3.textContent = post.name; // DON'T use innerHTML to avoid cross site scripting
         p.textContent = post.content;
-        created.textContent = post.created;
+        created.textContent = new Date(post.created);
         div.appendChild(h3);
-        div.appendChild(p);
         div.appendChild(created);
+        div.appendChild(p);
         postsDisplay.appendChild(div);
       });
       loading.style.display = 'none';

@@ -79,6 +79,7 @@ textarea {
 }
 .posts-display {
   margin-top: 40px;
+  width: 45%;
 }
 .post-single {
   border: 5px solid #f07f68;
@@ -90,6 +91,7 @@ textarea {
   color: #222;
 }
 .post-single h3 {
+  text-transform: capitalize;
   font-size: 2.4rem;
   margin: 0 0 5px;
 }
@@ -97,8 +99,11 @@ textarea {
   margin: 0 0 10px;
 }
 .post-single .created {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+  color: #5f5f5f;
   margin: 0 0 6px;
+  border-bottom: 1px solid #f1d2cc;
+  padding-bottom: 5px;
 }
 .loading {
   margin: 0 auto;
@@ -112,14 +117,24 @@ textarea {
 }
 hr {
   border: none;
-  width: 100%;
+  width: 52%;
   height: 50px;
   border-bottom: 1px solid #82a3ab;
   box-shadow: 0 20px 20px -20px #abd1da;
   margin: -30px auto 10px;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
+  h1 {
+    padding: 30px 0 0px;
+  }
+  main {
+    padding: 10px 0 10px;
+  }
+  hr {
+    width: 95%;
+    margin: -60px auto -20px;
+  }
   .btn-submit {
     width: 50%;
   }
